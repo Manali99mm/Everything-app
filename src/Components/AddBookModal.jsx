@@ -33,7 +33,7 @@ const AddBookModal = ({ setOpenBookModal }) => {
                                 duration: "",
                                 pagesRead: 0,
                                 totalPages: 0,
-                                percentProgress: 0,
+                                percentCompleted: 0,
                                 startDate: ""
                             }}
                             onSubmit={(values) => {
@@ -111,7 +111,7 @@ const AddBookModal = ({ setOpenBookModal }) => {
                                                         </div>
                                                     </div>
                                                     {selectedOption === "pages" && <p className="ml-4 mt-4">On Page <input type="text" name="pagesRead" onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /> of <input type="text" name="totalPages" onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /></p>}
-                                                    {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentProgress" onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
+                                                    {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentCompleted" onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
                                                 </div>
                                             </div>
                                             {/*footer*/}

@@ -1,10 +1,15 @@
 import { Formik } from "formik";
 import React from "react";
 import logo from "../assets/logo-transparent.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 const Register = () => {
+    const navigate = useNavigate();
+
+    const googleSignUp = () => (window.location.href = "http://localhost:4000/auth/google")
+
     return (
         <>
             {/* Large screen */}
@@ -14,12 +19,20 @@ const Register = () => {
                     <img src={logo} alt="logo" height="120px" width="120px" />
                     <Formik
                         initialValues={{
-                            name: "",
-                            email: "",
-                            password: ""
+                            credentials: {
+                                name: "",
+                                email: "",
+                                password: ""
+                            }
                         }}
                         onSubmit={(values) => {
-                            console.log(values)
+                            axios.post("http://localhost:4000/auth/signup", values)
+                                .then((res) => {
+                                    console.log(res.data)
+                                    localStorage.setItem("every-token", res.data.token);
+                                    navigate("/");
+                                })
+                                .catch((err) => console.log(err));
                         }}
                     >
                         {({ values, handleChange, handleSubmit }) => (
@@ -27,29 +40,29 @@ const Register = () => {
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"text"}
-                                    name="name"
+                                    name="credentials.name"
                                     placeholder="Full Name"
                                     onChange={handleChange}
-                                    value={values.name}
+                                    value={values.credentials.name}
                                 />
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"email"}
-                                    name="email"
+                                    name="credentials.email"
                                     placeholder="Email"
                                     onChange={handleChange}
-                                    value={values.email}
+                                    value={values.credentials.email}
                                 />
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"password"}
-                                    name="password"
+                                    name="credentials.password"
                                     onChange={handleChange}
-                                    value={values.password}
+                                    value={values.credentials.password}
                                     placeholder="Password"
                                 />
                                 <button type="submit" className="bg-everyblue text-white py-2 rounded-lg">Sign Up</button>
-                                <button className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign up with Google</button>
+                                <button onClick={googleSignUp} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign up with Google</button>
                             </form>
                         )}
                     </Formik>

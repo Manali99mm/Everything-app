@@ -1,10 +1,15 @@
 import { Formik } from "formik";
 import React from "react";
 import logo from "../assets/logo-transparent.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
 
 const Login = () => {
+    const navigate = useNavigate();
+
+    const googleSignIn = () => (window.location.href = "http://localhost:4000/auth/google")
+
     return (
         <>
             {/* Large screen */}
@@ -16,11 +21,20 @@ const Login = () => {
                     <h2 className="text-2xl font-semibold mb-7">Hello Again!</h2>
                     <Formik
                         initialValues={{
-                            email: "",
-                            password: ""
+                            credentials: {
+                                email: "",
+                                password: ""
+                            }
                         }}
                         onSubmit={(values) => {
                             console.log(values)
+                            axios.post("http://localhost:4000/auth/signin", values)
+                                .then((res) => {
+                                    // console.log(res);
+                                    localStorage.setItem("every-token", res.data.token);
+                                    navigate("/");
+                                })
+                                .catch((err) => console.log(err));
                         }}
                     >
                         {({ values, handleChange, handleSubmit }) => (
@@ -28,22 +42,22 @@ const Login = () => {
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"email"}
-                                    name="email"
+                                    name="credentials.email"
                                     placeholder="Email"
                                     onChange={handleChange}
-                                    value={values.email}
+                                    value={values.credentials.email}
                                 />
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"password"}
-                                    name="password"
+                                    name="credentials.password"
                                     onChange={handleChange}
-                                    value={values.password}
+                                    value={values.credentials.password}
                                     placeholder="Password"
                                 />
                                 <Link to="/register" className="text-sm text-everyblue font-semibold">Forgot password?</Link>
                                 <button type="submit" className="bg-everyblue text-white py-2 rounded-lg">Login</button>
-                                <button className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign in with Google</button>
+                                <button onClick={googleSignIn} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign in with Google</button>
                             </form>
                         )}
                     </Formik>

@@ -1,8 +1,45 @@
+import axios from "axios";
+import dayjs from "dayjs";
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
+import { getToken } from "../Utilities/getToken";
 
-const AddBookModal = ({ setOpenBookModal }) => {
+const AddBookModal = ({ setOpenBookModal, id }) => {
     const [selectedOption, setSelectedOption] = React.useState(null);
+    const [initialValues, setInitialValues] = React.useState({
+        title: "",
+        chapter: "",
+        duration: "",
+        pagesRead: 0,
+        totalPages: 0,
+        percentCompleted: 0,
+        startDate: ""
+    });
+
+    useEffect(() => {
+        id && axios.get(`http://localhost:4000/cr/${id}`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data);
+                const { title, chapter, pagesRead, totalPages, percentCompleted, startDate } = res.data;
+
+                setInitialValues({
+                    title,
+                    chapter,
+                    pagesRead,
+                    totalPages,
+                    percentCompleted,
+                    startDate: dayjs(startDate).format("YYYY-MM-DD"),
+                    duration: ""
+                })
+                console.log(dayjs(startDate).format("YYYY-MM-DD"));
+            })
+            .catch((err) => console.log(err));
+    }, [id])
+
     return (
         <>
             <div
@@ -14,7 +51,7 @@ const AddBookModal = ({ setOpenBookModal }) => {
                         {/*header*/}
                         <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                             <h3 className="text-3xl font-semibold">
-                                Add Book
+                                {id ? "Edit Book" : "Add Book"}
                             </h3>
                             <button
                                 className="p-1 ml-auto bg-transparent border-0 text-black  float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
@@ -27,17 +64,25 @@ const AddBookModal = ({ setOpenBookModal }) => {
                         </div>
                         {/*body*/}
                         <Formik
-                            initialValues={{
-                                title: "",
-                                chapter: "",
-                                duration: "",
-                                pagesRead: 0,
-                                totalPages: 0,
-                                percentCompleted: 0,
-                                startDate: ""
-                            }}
+                            enableReinitialize={true}
+                            initialValues={initialValues}
                             onSubmit={(values) => {
-                                alert(JSON.stringify(values, 2));
+                                if (selectedOption === "pages" && values.pagesRead > 0 && values.totalPages > 0) {
+                                    values.percentCompleted = 0;
+                                } else if (selectedOption === "percent" && values.percentCompleted > 0) {
+                                    values.pagesRead = 0
+                                    values.totalPages = 0
+                                }
+                                axios.post("http://localhost:4000/cr/new", { ...values, id }, {
+                                    headers: {
+                                        Authorization: `Bearer ${getToken()}`
+                                    }
+                                })
+                                    .then((res) => {
+                                        console.log(res.data);
+                                        window.location.reload();
+                                    })
+                                    .catch((err) => console.log(err));
                             }}
                         >
                             {({ values, handleChange, handleSubmit }) => (
@@ -78,7 +123,7 @@ const AddBookModal = ({ setOpenBookModal }) => {
                                                             className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
                                                         />
                                                     </div>
-                                                    <div className="relative w-1/2">
+                                                    {/* <div className="relative w-1/2">
                                                         <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Total Duration</label>
                                                         <input
                                                             type="text"
@@ -88,9 +133,9 @@ const AddBookModal = ({ setOpenBookModal }) => {
                                                             className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
                                                             placeholder="1 hr 32 mins"
                                                         />
-                                                    </div>
+                                                    </div> */}
                                                 </div>
-                                                <div class="relative flex flex-col">
+                                                {id && <div class="relative flex flex-col">
                                                     <label className=" px-2 ml-2 font-medium text-gray-600 bg-white">Progress</label>
                                                     <div className="flex gap-4 ml-4 mt-2">
                                                         <div className="flex gap-1">
@@ -110,9 +155,9 @@ const AddBookModal = ({ setOpenBookModal }) => {
                                                             />Per cent
                                                         </div>
                                                     </div>
-                                                    {selectedOption === "pages" && <p className="ml-4 mt-4">On Page <input type="text" name="pagesRead" onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /> of <input type="text" name="totalPages" onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /></p>}
-                                                    {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentCompleted" onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
-                                                </div>
+                                                    {selectedOption === "pages" && <p className="ml-4 mt-4">On Page <input type="text" name="pagesRead" value={values.pagesRead} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /> of <input type="text" name="totalPages" value={values.totalPages} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /></p>}
+                                                    {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentCompleted" value={values.percentCompleted} onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
+                                                </div>}
                                             </div>
                                             {/*footer*/}
                                             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

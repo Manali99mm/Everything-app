@@ -44,7 +44,7 @@ const SidebarNav = () => {
                 </Link>
             </div>
             {/* Large and medium screen */}
-            <div className="hidden md:block  md:1/3 lg:w-1/6 h-full p-2 sticky top-16 bottom-0">
+            <div className="hidden md:block md-w-1/3 lg:w-1/6 h-full p-2 sticky top-16 bottom-0">
                 <Link to="/dashboard" >
                     <div className={type === "dashboard" ? "p-2 flex gap-2 items-center cursor-pointer text-[#7f094b]" : "p-2 flex gap-2 items-center cursor-pointer text-everyblue"}>
                         <MdOutlineDashboard size={22} />

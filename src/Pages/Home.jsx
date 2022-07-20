@@ -4,6 +4,7 @@ import NavBar from "../Components/Navbar";
 import SidebarNav from "../Components/SideBarNav";
 import Dashboard from "../Components/Dashboard";
 import ReadingTracker from "../Components/ReadingTracker";
+import TBR from "../Components/TBR";
 
 const Home = () => {
     const { type } = useParams();
@@ -16,7 +17,7 @@ const Home = () => {
                     {type === "dashboard" && <Dashboard />}
                     {type === "reading-tracker" && <ReadingTracker />}
                     {type === "read-challenge" && <Dashboard />}
-                    {type === "tbr" && <Dashboard />}
+                    {type === "tbr" && <TBR />}
                     {type === "quotes" && <Dashboard />}
                     {type === "series-tracker" && <Dashboard />}
                 </div>

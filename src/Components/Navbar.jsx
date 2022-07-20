@@ -23,7 +23,6 @@ const NavBar = () => {
             }
         })
             .then((res) => {
-                console.log(res.data);
                 setUser(res.data?.user);
             })
             .catch((err) => console.log(err))

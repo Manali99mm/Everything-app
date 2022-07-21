@@ -39,7 +39,7 @@ const ReadingTracker = () => {
     }
 
     return (
-        <>
+        <div className="p-4">
             <h1 className="text-2xl uppercase font-semibold text-gray-600 px-8">Reading Tracker</h1>
             <section className="w-full antialiased text-gray-600 px-8 py-6">
                 <div className="flex flex-col justify-start h-full">
@@ -63,7 +63,7 @@ const ReadingTracker = () => {
                                                 <div className="font-semibold text-left">Book Title</div>
                                             </th>
                                             <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">Chapter</div>
+                                                <div className="font-semibold text-center">Chapter</div>
                                             </th>
                                             <th className="p-2 whitespace-nowrap">
                                                 <div className="font-semibold text-left">Date Started</div>
@@ -86,7 +86,7 @@ const ReadingTracker = () => {
                                                     </div>
                                                 </td>
                                                 <td className="p-2 whitespace-nowrap">
-                                                    <div className="text-left">{cr.chapter}</div>
+                                                    <div className="text-center">{cr.chapter}</div>
                                                 </td>
                                                 <td className="p-2 whitespace-nowrap">
                                                     <div className="text-left font-medium text-green-500">{dayjs(cr.startDate).format("DD MMM, YYYY")}</div>
@@ -129,7 +129,7 @@ const ReadingTracker = () => {
                 </div>
             </section>
             {openBookModal && <AddBookModal setOpenBookModal={setOpenBookModal} id={Id} />}
-        </>
+        </div>
     )
 }
 

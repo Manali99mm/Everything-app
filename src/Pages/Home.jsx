@@ -14,7 +14,7 @@ const Home = () => {
             <NavBar />
             <div className="w-full flex h-11/12">
                 <SidebarNav />
-                <div className="w-5/6 p-4 bg-gray-100">
+                <div className="w-5/6 bg-gray-100">
                     {type === "dashboard" && <Dashboard />}
                     {type === "reading-tracker" && <ReadingTracker />}
                     {type === "read-challenge" && <Dashboard />}

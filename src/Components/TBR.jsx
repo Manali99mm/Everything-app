@@ -4,10 +4,13 @@ import { SiAddthis } from "react-icons/si";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { getToken } from "../Utilities/getToken";
 import AddToTbrModal from "./AddToTbrModal";
+import TbrBookDetails from "./TBRBookDetails";
 
 const TBR = () => {
     const [showTbrModal, setShowTbrModal] = React.useState(false);
+    const [showDetails, setShowDetails] = React.useState(false);
     const [tbrList, setTbrList] = React.useState([]);
+    const [book, setBook] = React.useState({})
 
     useEffect(() => {
         console.log("hjhj");
@@ -23,7 +26,7 @@ const TBR = () => {
     }, [])
 
     return (
-        <>
+        <div className="p-4">
             <h1 className="text-2xl uppercase font-semibold text-gray-600 px-8 mt-2">To Be Read</h1>
             <div className="flex gap-10 m-8 flex-wrap">
                 <div
@@ -33,7 +36,12 @@ const TBR = () => {
                     <SiAddthis size={40} className="text-everyblue" />
                 </div>
                 {tbrList.map((t) => (
-                    <div className="relative h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-black bg-white shadow-lg overflow-hidden border-r-8 border-b-2 border-t-4 ">
+                    <div
+                        onClick={() => {
+                            setShowDetails(true)
+                            setBook(t)
+                        }}
+                        className="relative h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-black bg-white shadow-lg overflow-hidden border-r-8 border-b-2 border-t-4 cursor-pointer">
                         {t.cover ?
                             <img src={t.cover} alt="cover" className="w-full h-full" />
                             :
@@ -42,16 +50,17 @@ const TBR = () => {
                                 <h2 className="text-gray-500 text-sm text-center">by {t.author}</h2>
                             </div>
                         }
-                        <div className="absolute cursor-pointer top-0 left-0"
+                        {/* <div className="absolute cursor-pointer top-0 left-0"
                         >
                             <BsBookmarkCheckFill size={35} className="-ml-1.5 -mt-1 hover:text-green-400" />
-                        </div>
+                        </div> */}
                     </div>
                 ))}
 
             </div>
             {showTbrModal && <AddToTbrModal setShowTbrModal={setShowTbrModal} />}
-        </>
+            {showDetails && <TbrBookDetails book={book} showDetails={setShowDetails} />}
+        </div>
     )
 }
 

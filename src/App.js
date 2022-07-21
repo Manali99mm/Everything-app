@@ -10,10 +10,6 @@ import PrivateRoute from "./Routes/PrivateRoute";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
-  useEffect(() => {
-    console.log("dfjdfskj");
-  }, [])
-
   return (
     <>
       <ToastContainer />

@@ -23,7 +23,6 @@ const AddBookModal = ({ setOpenBookModal, id }) => {
             }
         })
             .then((res) => {
-                console.log(res.data);
                 const { title, chapter, pagesRead, totalPages, percentCompleted, startDate } = res.data;
 
                 setInitialValues({
@@ -35,7 +34,6 @@ const AddBookModal = ({ setOpenBookModal, id }) => {
                     startDate: dayjs(startDate).format("YYYY-MM-DD"),
                     duration: ""
                 })
-                console.log(dayjs(startDate).format("YYYY-MM-DD"));
             })
             .catch((err) => console.log(err));
     }, [id])

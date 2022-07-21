@@ -40,7 +40,7 @@ const ReadingTracker = () => {
 
     return (
         <>
-            <h1 className="text-2xl font-semibold text-gray-600 px-8">Reading Tracker</h1>
+            <h1 className="text-2xl uppercase font-semibold text-gray-600 px-8">Reading Tracker</h1>
             <section className="w-full antialiased text-gray-600 px-8 py-6">
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">

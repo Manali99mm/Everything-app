@@ -4,7 +4,6 @@ import { SiAddthis } from "react-icons/si";
 import { BsBookmarkCheckFill } from "react-icons/bs";
 import { getToken } from "../Utilities/getToken";
 import AddToTbrModal from "./AddToTbrModal";
-import { toast } from "react-toastify";
 
 const TBR = () => {
     const [showTbrModal, setShowTbrModal] = React.useState(false);
@@ -25,7 +24,7 @@ const TBR = () => {
 
     return (
         <>
-            <h1 className="text-2xl font-semibold text-gray-600 px-8 mt-2">To Be Read</h1>
+            <h1 className="text-2xl uppercase font-semibold text-gray-600 px-8 mt-2">To Be Read</h1>
             <div className="flex gap-10 m-8 flex-wrap">
                 <div
                     onClick={() => setShowTbrModal(true)}

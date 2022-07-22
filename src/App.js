@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GoogleAuth from "./Pages/GoogleAuth";
@@ -8,6 +8,7 @@ import Register from "./Pages/Register";
 import PrivateRoute from "./Routes/PrivateRoute";
 
 import "react-toastify/dist/ReactToastify.css";
+import MovieSeriesProvider from "./Context/MovieSeriesContext";
 
 const App = () => {
   return (
@@ -19,7 +20,9 @@ const App = () => {
         </PrivateRoute>} >
         </Route>
         <Route path="/:type" element={<PrivateRoute>
-          <Home />
+          <MovieSeriesProvider>
+            <Home />
+          </MovieSeriesProvider>
         </PrivateRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

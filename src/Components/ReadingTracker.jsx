@@ -5,11 +5,15 @@ import AddBookModal from "./AddBookModal";
 import axios from "axios";
 import { getToken } from "../Utilities/getToken";
 import dayjs from "dayjs";
+import AddNewBookModal from "./AddNewBookModal";
+import ReactStars from "react-rating-stars-component";
 
 const ReadingTracker = () => {
     const [openBookModal, setOpenBookModal] = React.useState(false);
     const [currentReads, setCurrentReads] = React.useState([]);
+    const [showNewBookModal, setShowNewBookModal] = React.useState(false);
     const [Id, setId] = React.useState();
+    const [books, setBooks] = React.useState([]);
 
     useEffect(() => {
         axios.get("http://localhost:4000/cr/list", {
@@ -19,6 +23,19 @@ const ReadingTracker = () => {
         })
             .then((res) => {
                 setCurrentReads(res.data.list);
+            })
+            .catch((err) => console.log(err));
+    }, [])
+
+    useEffect(() => {
+        axios.get("http://localhost:4000/book/list", {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        })
+            .then((res) => {
+                console.log(res.data);
+                setBooks(res.data.books);
             })
             .catch((err) => console.log(err));
     }, [])
@@ -45,7 +62,7 @@ const ReadingTracker = () => {
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
                         <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-                            <h2 className="font-semibold text-gray-800">Currently Reading</h2>
+                            <h2 className="font-semibold text-gray-800 text-lg">Currently Reading</h2>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
                                 setOpenBookModal(true)
@@ -128,7 +145,41 @@ const ReadingTracker = () => {
                     </div>
                 </div>
             </section>
+            {/* Book Shelf */}
+            <section className="w-full antialiased text-gray-600 px-8 py-6">
+                <div className="flex flex-col justify-start h-full">
+                    <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
+                        <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+                            <h2 className="font-semibold text-lg text-gray-800">Book Shelf</h2>
+                            <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
+                                setId(null);
+                                setShowNewBookModal(true)
+                            }}>Add Book</button>
+                        </header>
+                        <div className="px-5 py-3 flex gap-4 flex-wrap w-full">
+                            {books.map((book) => (
+                                <div className="h-fit text-white bg-gray-600 flex flex-col gap-1 p-2 rounded-lg grow max-w-xs">
+                                    <div className="w-full h-24">
+                                        {book.cover && <img src={book.cover} alt="cover" className="object-contain w-full h-full" />}
+                                    </div>
+                                    <h2 className="font-semibold">{book.title}</h2>
+                                    <h3 className="text-sm">{book.author}</h3>
+                                    <h3 className="text-sm">{dayjs(book.endDate).format("MMMM DD, YYYY")}</h3>
+                                    <ReactStars
+                                        edit={false}
+                                        value={book.rating}
+                                        isHalf={true}
+                                        size={20}
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {openBookModal && <AddBookModal setOpenBookModal={setOpenBookModal} id={Id} />}
+            {showNewBookModal && <AddNewBookModal setShowModal={setShowNewBookModal} />}
         </div>
     )
 }

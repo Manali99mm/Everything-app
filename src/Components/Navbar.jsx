@@ -53,7 +53,7 @@ const NavBar = () => {
     return (
         <>
             {/* Large screen */}
-            <div className="w-full hidden md:block md:flex items-center justify-between bg-everyblue h-1/12 py-2 px-4 sticky top-0 z-10">
+            <div className="w-full flex items-center justify-between bg-everyblue h-1/12 py-2 px-4 sticky top-0 z-10">
                 <img src={logo} alt="logo" className="w-44 h-full py-1" />
                 <div ref={ref}>
                     {

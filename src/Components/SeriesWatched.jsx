@@ -69,7 +69,7 @@ const SeriesWatched = () => {
                 ))}
 
             </div>
-            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="series" />}
+            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="series" id={Id} />}
         </>
     )
 }

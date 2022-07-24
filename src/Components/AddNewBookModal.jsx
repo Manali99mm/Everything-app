@@ -34,7 +34,7 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
     }, [id, book])
 
     const deleteItem = () => {
-        axios.delete(`https://everything-apis.herokuapp.com/book/delete/${id}/${book?.cloudinary_id.split("/")[1]}`, {
+        axios.delete(`https://everything-apis.herokuapp.com/book/delete/${id}/${book.cloudinary_id ? book.cloudinary_id.split("/")[1] : book.cloudinary_id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -70,9 +70,11 @@ const ReadingChallenge = () => {
                             <div className="py-8 px-4 flex flex-wrap justify-start gap-4">
                                 {readingChallenge.books.map((book) => (
                                     <div className="bg-gray-600 flex relative rounded-sm w-full md:w-1/3 lg:w-1/4 grow md:max-w-rt">
-                                        <div>
-                                            <img src={book.cover} alt="cover" className="w-28 h-full object-fill" />
-                                        </div>
+                                        {book.cover ? (
+                                            <div>
+                                                <img src={book.cover} alt="cover" className="w-28 h-full object-fill" />
+                                            </div>
+                                        ) : null}
                                         <div className="p-2 text-white">
                                             <h1 className="text-base line-clamp-2 leading-tight">{book.title}</h1>
                                             <h1 className="text-sm line-clamp-1">by {book.author}</h1>

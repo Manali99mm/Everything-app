@@ -9,6 +9,7 @@ import PrivateRoute from "./Routes/PrivateRoute";
 
 import "react-toastify/dist/ReactToastify.css";
 import MovieSeriesProvider from "./Context/MovieSeriesContext";
+import QuotesList from "./Components/QuotesList";
 
 const App = () => {
   return (
@@ -24,6 +25,11 @@ const App = () => {
             <Home />
           </MovieSeriesProvider>
         </PrivateRoute>} />
+        <Route path="/quote/:id" element={
+          <PrivateRoute>
+            <QuotesList />
+          </PrivateRoute>
+        } />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/google/:token" element={<GoogleAuth />} />

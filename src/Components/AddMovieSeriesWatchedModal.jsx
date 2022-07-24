@@ -90,7 +90,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                     <div className="relative flex-auto">
                                         <form className="relative w-full" onSubmit={handleSubmit}>
                                             <div className="relative w-full mt-2 space-y-6 px-6 py-4">
-                                                <div class="relative">
+                                                <div className="relative">
                                                     <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Title</label>
                                                     <input
                                                         type="text"
@@ -103,7 +103,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                                 </div>
                                                 {type === "series" && <div className="flex gap-4"
                                                 >
-                                                    <div class="relative w-1/2">
+                                                    <div className="relative w-1/2">
                                                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Seasons Watched</label>
                                                         <input
                                                             type="text"
@@ -114,7 +114,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                                             placeholder={"5"}
                                                         />
                                                     </div>
-                                                    <div class="relative w-1/2">
+                                                    <div className="relative w-1/2">
                                                         <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Total Seasons</label>
                                                         <input
                                                             type="text"
@@ -136,6 +136,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                                             edit={true}
                                                             size={28}
                                                             value={values.rating}
+                                                            key={values.rating}
                                                             emptyIcon={<FaRegStar />}
                                                             halfIcon={<FaStarHalfAlt />}
                                                             fullIcon={<FaStar />}

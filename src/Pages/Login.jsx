@@ -26,7 +26,6 @@ const Login = () => {
                             }
                         }}
                         onSubmit={(values) => {
-                            console.log(values)
                             axios.post("https://everything-apis.herokuapp.com/auth/signin", values)
                                 .then((res) => {
                                     // console.log(res);

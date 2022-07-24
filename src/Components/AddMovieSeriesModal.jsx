@@ -128,7 +128,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
                                                     </div>
                                                     <div className="flex gap-4">
                                                         <div class="relative w-1/2">
-                                                            <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Season Currently Watching</label>
+                                                            <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Current Season</label>
                                                             <input
                                                                 type="text"
                                                                 name="currSeason"
@@ -152,7 +152,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
                                                     </div>
                                                     <div className="flex gap-4">
                                                         <div class="relative w-1/2">
-                                                            <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Episode Currently Watching</label>
+                                                            <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Current Episode</label>
                                                             <input
                                                                 type="text"
                                                                 name="currEpisode"

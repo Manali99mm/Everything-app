@@ -42,7 +42,7 @@ const TbrBookDetails = ({ book, showDetails }) => {
                                 <div className="flex px-8 py-6 gap-6">
                                     {book.cover ? <img src={book.cover} alt="cover" className="w-40 h-48" /> : (
                                         <div className="w-40 h-48 border-r-8 border-t-4 border-black bg-red-500 p-2 flex flex-col justify-center items-center text-center gap-2 overflow-hidden">
-                                            <h1 className="text-white font-semibold line-clamp-3">{book.title}</h1>
+                                            <h1 className="text-lg text-white font-semibold line-clamp-3">{book.title}</h1>
                                             <h2 className="text-white line-clamp-2">by {book.author}</h2>
                                         </div>
                                     )}

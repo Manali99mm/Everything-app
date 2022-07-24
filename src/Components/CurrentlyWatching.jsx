@@ -16,7 +16,6 @@ const CurrentlyWatching = () => {
             }
         })
             .then((res) => {
-                console.log(res.data);
                 setCurrwatching(res.data.list);
             })
             .catch((err) => console.log(err));

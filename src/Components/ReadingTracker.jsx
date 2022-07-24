@@ -59,10 +59,10 @@ const ReadingTracker = () => {
     return (
         <div className="p-4">
             <h1 className="text-2xl uppercase font-semibold text-gray-600 px-8">Reading Tracker</h1>
-            <section className="w-full antialiased text-gray-600 px-8 py-6">
+            <section className="w-full antialiased text-gray-600 md:px-8 py-6">
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center gap-1">
                             <h2 className="font-semibold text-gray-800 text-lg">Currently Reading <span className="text-gray-500">({currentReads.length})</span></h2>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
@@ -147,10 +147,10 @@ const ReadingTracker = () => {
                 </div>
             </section>
             {/* Book Shelf */}
-            <section className="w-full antialiased text-gray-600 px-8 py-6">
+            <section className="w-full antialiased text-gray-600 md:px-8 py-6">
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
+                        <header className="px-5 py-4 border-b border-gray-100 flex gap-1 justify-between items-center">
                             <h2 className="font-semibold text-lg text-gray-800">Book Shelf <span className="text-gray-500">({books.length})</span></h2>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
@@ -172,7 +172,7 @@ const ReadingTracker = () => {
                                     </div>
                                     <h2 className="font-semibold">{book.title}</h2>
                                     <h3 className="text-sm">{book.author}</h3>
-                                    <h3 className="text-sm">{dayjs(book.endDate).format("MMMM DD, YYYY")}</h3>
+                                    <h3 className="text-sm">{book.endDate && dayjs(book.endDate).format("MMMM DD, YYYY")}</h3>
                                     <ReactStars
                                         edit={false}
                                         value={book.rating}

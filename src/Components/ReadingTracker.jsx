@@ -14,6 +14,7 @@ const ReadingTracker = () => {
     const [showNewBookModal, setShowNewBookModal] = React.useState(false);
     const [Id, setId] = React.useState();
     const [books, setBooks] = React.useState([]);
+    const [selectedBook, setSelectedBook] = React.useState();
 
     useEffect(() => {
         axios.get("http://localhost:4000/cr/list", {
@@ -62,7 +63,7 @@ const ReadingTracker = () => {
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
                         <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-                            <h2 className="font-semibold text-gray-800 text-lg">Currently Reading</h2>
+                            <h2 className="font-semibold text-gray-800 text-lg">Currently Reading <span className="text-gray-500">({currentReads.length})</span></h2>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
                                 setOpenBookModal(true)
@@ -150,15 +151,22 @@ const ReadingTracker = () => {
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
                         <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center">
-                            <h2 className="font-semibold text-lg text-gray-800">Book Shelf</h2>
+                            <h2 className="font-semibold text-lg text-gray-800">Book Shelf <span className="text-gray-500">({books.length})</span></h2>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
+                                setSelectedBook();
                                 setShowNewBookModal(true)
                             }}>Add Book</button>
                         </header>
                         <div className="px-5 py-3 flex gap-4 flex-wrap w-full">
                             {books.map((book) => (
-                                <div className="h-fit text-white bg-gray-600 flex flex-col gap-1 p-2 rounded-lg grow max-w-xs">
+                                <div
+                                    onClick={() => {
+                                        setShowNewBookModal(true)
+                                        setId(book._id)
+                                        setSelectedBook(book)
+                                    }}
+                                    className="h-fit text-white bg-gray-600 flex flex-col gap-1 p-2 rounded-lg grow max-w-rt cursor-pointer">
                                     <div className="w-full h-24">
                                         {book.cover && <img src={book.cover} alt="cover" className="object-contain w-full h-full" />}
                                     </div>
@@ -179,7 +187,7 @@ const ReadingTracker = () => {
             </section>
 
             {openBookModal && <AddBookModal setOpenBookModal={setOpenBookModal} id={Id} />}
-            {showNewBookModal && <AddNewBookModal setShowModal={setShowNewBookModal} />}
+            {showNewBookModal && <AddNewBookModal setShowModal={setShowNewBookModal} id={Id} book={selectedBook} />}
         </div>
     )
 }

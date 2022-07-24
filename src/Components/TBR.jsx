@@ -31,7 +31,7 @@ const TBR = () => {
             <div className="flex gap-10 m-8 flex-wrap">
                 <div
                     onClick={() => setShowTbrModal(true)}
-                    className="p-2 h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-gray-300 bg-white shadow-lg flex flex-col gap-2 justify-center items-center hover:bg-gray-100 hover:text-gray-500 cursor-pointer"
+                    className="p-2 h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-gray-300 bg-white shadow-lg flex flex-col gap-2 justify-center items-center hover:bg-gray-100 hover:text-gray-500 cursor-pointer grow max-w-cu"
                 >
                     <SiAddthis size={40} className="text-everyblue" />
                 </div>
@@ -41,7 +41,7 @@ const TBR = () => {
                             setShowDetails(true)
                             setBook(t)
                         }}
-                        className="relative h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-black bg-white shadow-lg overflow-hidden border-r-8 border-b-2 border-t-4 cursor-pointer">
+                        className="relative h-48 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 border border-black bg-white shadow-lg overflow-hidden border-r-8 border-b-2 border-t-4 cursor-pointer grow max-w-cu">
                         {t.cover ?
                             <img src={t.cover} alt="cover" className="w-full h-full" />
                             :

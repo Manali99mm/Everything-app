@@ -6,6 +6,7 @@ import Dashboard from "../Components/Dashboard";
 import ReadingTracker from "../Components/ReadingTracker";
 import TBR from "../Components/TBR";
 import MovieSeriesTracker from "../Components/MovieSeriesTracker";
+import ReadingChallenge from "../Components/ReadingChallenge";
 
 const Home = () => {
     const { type } = useParams();
@@ -17,7 +18,7 @@ const Home = () => {
                 <div className="w-5/6 bg-gray-100">
                     {type === "dashboard" && <Dashboard />}
                     {type === "reading-tracker" && <ReadingTracker />}
-                    {type === "read-challenge" && <Dashboard />}
+                    {type === "read-challenge" && <ReadingChallenge />}
                     {type === "tbr" && <TBR />}
                     {type === "quotes" && <Dashboard />}
                     {type === "series-tracker" && <MovieSeriesTracker />}

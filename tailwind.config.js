@@ -7,6 +7,10 @@ module.exports = {
     extend: {
       colors: {
         'everyblue': '#0d67b5'
+      },
+      maxWidth: {
+        cu: '240px',
+        rt: '280px'
       }
     },
   },

@@ -12,10 +12,9 @@ const Register = () => {
 
     return (
         <>
-            {/* Large screen */}
-            <div className="w-full hidden md:block md:flex md:flex-row">
-                <div className="bg-everyblue w-1/2 h-screen"></div>
-                <div className="w-1/2 flex flex-col justify-center items-center">
+            <div className="w-full lg:flex">
+                <div className="hidden lg:block bg-everyblue w-1/2 h-screen"></div>
+                <div className="w-full lg:w-1/2 flex flex-col justify-center items-center">
                     <img src={logo} alt="logo" height="120px" width="120px" />
                     <Formik
                         initialValues={{
@@ -36,7 +35,7 @@ const Register = () => {
                         }}
                     >
                         {({ values, handleChange, handleSubmit }) => (
-                            <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full md:px-16 lg:px-28">
+                            <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full px-8 md:px-16 lg:px-28">
                                 <input
                                     className="p-2 bg-gray-50 rounded-sm border"
                                     type={"text"}

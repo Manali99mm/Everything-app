@@ -8,7 +8,7 @@ import axios from "axios";
 const Login = () => {
     const navigate = useNavigate();
 
-    const googleSignIn = () => (window.location.href = "http://localhost:4000/auth/google")
+    const googleSignIn = () => (window.location.href = "https://everything-apis.herokuapp.com/auth/google")
 
     return (
         <>
@@ -28,7 +28,7 @@ const Login = () => {
                         }}
                         onSubmit={(values) => {
                             console.log(values)
-                            axios.post("http://localhost:4000/auth/signin", values)
+                            axios.post("https://everything-apis.herokuapp.com/auth/signin", values)
                                 .then((res) => {
                                     // console.log(res);
                                     localStorage.setItem("every-token", res.data.token);

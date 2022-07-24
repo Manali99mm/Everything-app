@@ -34,7 +34,7 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
     }, [id, book])
 
     const deleteItem = () => {
-        axios.delete(`http://localhost:4000/book/delete/${id}/${book?.cloudinary_id.split("/")[1]}`, {
+        axios.delete(`https://everything-apis.herokuapp.com/book/delete/${id}/${book?.cloudinary_id.split("/")[1]}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -72,7 +72,7 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
                             initialValues={initialValues}
                             onSubmit={(values) => {
                                 console.log(values)
-                                axios.postForm("http://localhost:4000/book/new", { ...values, id }, {
+                                axios.postForm("https://everything-apis.herokuapp.com/book/new", { ...values, id }, {
                                     headers: {
                                         Authorization: `Bearer ${getToken()}`
                                     }

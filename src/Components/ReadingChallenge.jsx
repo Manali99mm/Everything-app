@@ -11,7 +11,7 @@ const ReadingChallenge = () => {
     const [edit, setEdit] = React.useState(false);
 
     useEffect(() => {
-        axios.get("http://localhost:4000/user/", {
+        axios.get("https://everything-apis.herokuapp.com/user/", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

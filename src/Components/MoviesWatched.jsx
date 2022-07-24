@@ -12,7 +12,7 @@ const MoviesWatched = () => {
     const [Id, setId] = React.useState();
 
     useEffect(() => {
-        axios.get("http://localhost:4000/movser/watched/movies/list", {
+        axios.get("https://everything-apis.herokuapp.com/movser/watched/movies/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

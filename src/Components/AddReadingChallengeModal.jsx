@@ -1,6 +1,5 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { Formik } from "formik";
 import React from "react";
 import { getToken } from "../Utilities/getToken";
 
@@ -8,7 +7,7 @@ const AddReadingChallengeModal = ({ setShowModal, edit, goal }) => {
     const [totalBooks, setTotalBooks] = React.useState(goal);
 
     const startReadingChallenge = () => {
-        axios.post("http://localhost:4000/user/readingChallenge", { totalBooks }, {
+        axios.post("https://everything-apis.herokuapp.com/user/readingChallenge", { totalBooks }, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

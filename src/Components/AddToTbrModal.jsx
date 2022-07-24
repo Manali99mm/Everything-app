@@ -32,7 +32,7 @@ const AddToTbrModal = ({ setShowTbrModal }) => {
                                 image: null
                             }}
                             onSubmit={(values) => {
-                                axios.postForm("http://localhost:4000/tbr/add", values, {
+                                axios.postForm("https://everything-apis.herokuapp.com/tbr/add", values, {
                                     headers: {
                                         Authorization: `Bearer ${getToken()}`
                                     }

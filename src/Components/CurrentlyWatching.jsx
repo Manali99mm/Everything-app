@@ -10,7 +10,7 @@ const CurrentlyWatching = () => {
     const [Id, setId] = React.useState();
 
     useEffect(() => {
-        axios.get("http://localhost:4000/movser/curr/list", {
+        axios.get("https://everything-apis.herokuapp.com/movser/curr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -17,7 +17,7 @@ const ReadingTracker = () => {
     const [selectedBook, setSelectedBook] = React.useState();
 
     useEffect(() => {
-        axios.get("http://localhost:4000/cr/list", {
+        axios.get("https://everything-apis.herokuapp.com/cr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -29,7 +29,7 @@ const ReadingTracker = () => {
     }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:4000/book/list", {
+        axios.get("https://everything-apis.herokuapp.com/book/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -42,7 +42,7 @@ const ReadingTracker = () => {
     }, [])
 
     const deleteBook = (id) => {
-        axios.delete(`http://localhost:4000/cr/delete/${id}`, {
+        axios.delete(`https://everything-apis.herokuapp.com/cr/delete/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -17,7 +17,7 @@ const AddBookModal = ({ setOpenBookModal, id }) => {
     });
 
     useEffect(() => {
-        id && axios.get(`http://localhost:4000/cr/${id}`, {
+        id && axios.get(`https://everything-apis.herokuapp.com/cr/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -71,7 +71,7 @@ const AddBookModal = ({ setOpenBookModal, id }) => {
                                     values.pagesRead = 0
                                     values.totalPages = 0
                                 }
-                                axios.post("http://localhost:4000/cr/new", { ...values, id }, {
+                                axios.post("https://everything-apis.herokuapp.com/cr/new", { ...values, id }, {
                                     headers: {
                                         Authorization: `Bearer ${getToken()}`
                                     }

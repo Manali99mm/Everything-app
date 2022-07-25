@@ -23,7 +23,7 @@ const CurrentlyWatching = () => {
 
     return (
         <>
-            <div className="px-12 pb-8 flex pt-6 flex-wrap gap-8">
+            <div className="pb-8 flex pt-6 flex-wrap gap-8">
                 <div
                     onClick={() => {
                         setId(null)

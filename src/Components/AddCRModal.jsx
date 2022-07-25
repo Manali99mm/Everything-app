@@ -4,7 +4,7 @@ import { Formik } from "formik";
 import React, { useEffect } from "react";
 import { getToken } from "../Utilities/getToken";
 
-const AddBookModal = ({ setOpenBookModal, id }) => {
+const AddCRModal = ({ setOpenBookModal, id }) => {
     const [selectedOption, setSelectedOption] = React.useState(null);
     const [initialValues, setInitialValues] = React.useState({
         title: "",
@@ -189,4 +189,4 @@ const AddBookModal = ({ setOpenBookModal, id }) => {
     )
 }
 
-export default AddBookModal;
+export default AddCRModal;

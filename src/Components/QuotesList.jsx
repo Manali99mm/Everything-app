@@ -53,7 +53,7 @@ const QuotesList = () => {
                 <NavBar />
                 <div className="w-full flex h-11/12">
                     <SidebarNav />
-                    <div className="w-5/6 bg-gray-100 p-4 lg:px-8 flex flex-col gap-4">
+                    <div className="w-5/6 bg-gray-100 p-4 lg:px-8 flex flex-col gap-4 h-screen">
                         <h1 className="text-xl font-semibold text-gray-700">{details.book} Quotes</h1>
                         <div className="flex justify-between w-full lg:w-2/3 gap-2 items-center">
                             <div>
@@ -70,7 +70,7 @@ const QuotesList = () => {
                                 Add Quote
                             </button>
                         </div>
-                        <div>
+                        <div className="space-y-2">
                             {details.quotes.map((q) => (
                                 <div className="italic px-2 rounded-lg pt-2 pb-4 bg-white border-b border-gray-400 w-full lg:w-2/3">
                                     “{q}”

@@ -15,7 +15,8 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
         endDate: null,
         rating: 0,
         category: [],
-        publicationYear: ""
+        publicationYear: "",
+        review: ""
     });
 
     useEffect(() => {
@@ -28,7 +29,8 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
                 endDate: book.endDate ? dayjs(book.endDate).format("YYYY-MM-DD") : null,
                 rating: book.rating ? book.rating : 0,
                 category: book.category,
-                publicationYear: book.publicationYear ? book.publicationYear : ""
+                publicationYear: book.publicationYear ? book.publicationYear : "",
+                review: book.review ? book.review : ""
             })
         )
     }, [id, book])
@@ -48,8 +50,8 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
 
     return (
         <>
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                <div className="relative w-full  my-6 mx-auto max-w-2xl">
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ">
+                <div className="relative w-full my-6 mx-auto max-w-2xl">
                     {/*content*/}
                     <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         {/*header*/}
@@ -174,6 +176,18 @@ const AddNewBookModal = ({ setShowModal, id, book }) => {
                                                             activeColor="#ffd700"
                                                         />
                                                     </div>
+                                                </div>
+                                                <div class="relative">
+                                                    <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Review</label>
+                                                    <textarea
+                                                        rows={3}
+                                                        type="text"
+                                                        name="review"
+                                                        value={values.review}
+                                                        onChange={handleChange}
+                                                        className="resize-none block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
+                                                        placeholder="Review..."
+                                                    />
                                                 </div>
                                             </div>
                                             {/*footer*/}

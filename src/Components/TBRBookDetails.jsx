@@ -50,7 +50,7 @@ const TbrBookDetails = ({ book, showDetails }) => {
                                         <h1 className="text-xl"><span className="font-semibold">Title:</span> {book.title}</h1>
                                         <h1 className="text-xl"><span className="font-semibold">Author:</span> {book.author}</h1>
                                         <div className="flex mt-4 gap-2 md:gap-4 items-center">
-                                            <h4 className="text-lg text-everyblue">Finished Reading?</h4>
+                                            <h4 className="text-lg text-everyblue">Started Reading?</h4>
                                             <button
                                                 onClick={removeFromTbr}
                                                 className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

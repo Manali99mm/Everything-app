@@ -50,33 +50,33 @@ const CurrentlyReading = () => {
                                 setOpenBookModal(true)
                             }}>Add Book</button>
                         </header>
-                        <div className="p-3">
-                            <div className="overflow-x-auto">
-                                <table className="table-auto w-full">
-                                    <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
-                                        <tr>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">#</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap w-1/4">
-                                                <div className="font-semibold text-left">Book Title</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-center">Chapter</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-left">Date Started</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-center">Progress</div>
-                                            </th>
-                                            <th className="p-2 whitespace-nowrap">
-                                                <div className="font-semibold text-center">Action</div>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-sm divide-y divide-gray-100">
-                                        {currentReads.length > 0 ? currentReads.map((cr) => (
+                        {currentReads.length > 0 ? currentReads.map((cr) => (
+                            <div className="p-3">
+                                <div className="overflow-x-auto">
+                                    <table className="table-auto w-full">
+                                        <thead className="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                                            <tr>
+                                                <th className="p-2 whitespace-nowrap">
+                                                    <div className="font-semibold text-left">#</div>
+                                                </th>
+                                                <th className="p-2 whitespace-nowrap w-1/4">
+                                                    <div className="font-semibold text-left">Book Title</div>
+                                                </th>
+                                                <th className="p-2 whitespace-nowrap">
+                                                    <div className="font-semibold text-center">Chapter</div>
+                                                </th>
+                                                <th className="p-2 whitespace-nowrap">
+                                                    <div className="font-semibold text-left">Date Started</div>
+                                                </th>
+                                                <th className="p-2 whitespace-nowrap">
+                                                    <div className="font-semibold text-center">Progress</div>
+                                                </th>
+                                                <th className="p-2 whitespace-nowrap">
+                                                    <div className="font-semibold text-center">Action</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="text-sm divide-y divide-gray-100">
                                             <tr>
                                                 <td className="p-2">{cr.sno}</td>
                                                 <td className="p-2 whitespace-nowrap">
@@ -118,12 +118,12 @@ const CurrentlyReading = () => {
                                                     </div>
                                                 </td>
                                             </tr>
-                                        )) : <p className="p-4">You are currently not reading any book. Start Reading!</p>}
-
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        )) :
+                            <p className="p-4">You are currently not reading any book. Start Reading!</p>}
                     </div>
                 </div>
             </section>

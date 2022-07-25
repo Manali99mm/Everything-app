@@ -17,6 +17,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Dashboard = () => {
     const [booksReadThisYear, setBooksReadThisYear] = React.useState(0);
     const [booksReadLastYear, setBooksReadLastYear] = React.useState(0);
+    const [name, setName] = React.useState("");
 
     useEffect(() => {
         axios.get("https://everything-apis.herokuapp.com/book/dashboard", {
@@ -25,8 +26,8 @@ const Dashboard = () => {
             }
         })
             .then((res) => {
-                const { result } = res.data;
-                console.log(result);
+                const { result, user } = res.data;
+                setName(user);
                 result.forEach((r) => {
                     if (r._id === dayjs().get("year")) {
                         setBooksReadThisYear(r.total)
@@ -67,7 +68,7 @@ const Dashboard = () => {
 
     return (
         <div className="p-4 lg:px-8 md:py-4">
-            <h1 className="text-xl md:text-2xl text-gray-700 font-semibold md:px-8">Hello Manali Mathur!</h1>
+            <h1 className="text-xl md:text-2xl text-gray-700 font-semibold md:px-8">Hello {name}!</h1>
             {(booksReadLastYear > 0 || booksReadThisYear > 0) && (
                 <div className="w-64 md:w-1/2 lg:w-1/3 md:px-8 mt-8">
                     <Pie options={options} data={data} />

@@ -76,7 +76,7 @@ const CurrentlyReading = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
-                                        {currentReads.map((cr) => (
+                                        {currentReads.length > 0 ? currentReads.map((cr) => (
                                             <tr>
                                                 <td className="p-2">{cr.sno}</td>
                                                 <td className="p-2 whitespace-nowrap">
@@ -118,7 +118,7 @@ const CurrentlyReading = () => {
                                                     </div>
                                                 </td>
                                             </tr>
-                                        ))}
+                                        )) : <p className="p-4">You are currently not reading any book. Start Reading!</p>}
 
                                     </tbody>
                                 </table>

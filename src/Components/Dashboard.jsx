@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { getToken } from "../Utilities/getToken";
 import dayjs from "dayjs";
+import LoaderSpinner from "./LoaderSpinner";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -18,14 +19,17 @@ const Dashboard = () => {
     const [booksReadThisYear, setBooksReadThisYear] = React.useState(0);
     const [booksReadLastYear, setBooksReadLastYear] = React.useState(0);
     const [name, setName] = React.useState("");
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/book/dashboard", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 const { result, user } = res.data;
                 setName(user);
                 result.forEach((r) => {
@@ -69,7 +73,11 @@ const Dashboard = () => {
     return (
         <div className="p-4 lg:px-8 md:py-4">
             <h1 className="text-xl md:text-2xl text-gray-700 font-semibold md:px-8">Hello {name}!</h1>
-            {(booksReadLastYear > 0 || booksReadThisYear > 0) && (
+            {isLoading ? (
+                <div className="p-4 w-full justify-center flex">
+                    <LoaderSpinner />
+                </div>
+            ) : (booksReadLastYear > 0 || booksReadThisYear > 0) && (
                 <div className="w-64 md:w-1/2 lg:w-1/3 md:px-8 mt-8">
                     <Pie options={options} data={data} />
                 </div>

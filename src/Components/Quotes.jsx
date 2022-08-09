@@ -4,21 +4,25 @@ import { ImQuotesLeft, ImQuotesRight } from "react-icons/im";
 import { getToken } from "../Utilities/getToken";
 import AddQuoteModal from "./AddQuoteModal";
 import { useNavigate } from "react-router-dom";
+import LoaderSpinner from "./LoaderSpinner";
 
 const Quotes = () => {
     const [showModal, setShowModal] = React.useState(false);
     const [quotes, setQuotes] = React.useState([]);
     const [id, setId] = React.useState();
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/quote/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 setQuotes(res.data.list);
             })
             .catch((err) => console.log(err));
@@ -53,7 +57,11 @@ const Quotes = () => {
                 </button>
             </div>
             <div className="p-4 m-2 mb-8 flex flex-col gap-4 flex-wrap">
-                {quotes.map((q) => (
+                {isLoading ? (
+                    <div className="w-full flex justify-center">
+                        <LoaderSpinner />
+                    </div>
+                ) : quotes.map((q) => (
                     <div className="bg-white p-4 rounded-lg border border-gray-400 flex flex-col lg:flex-row lg:justify-between lg:items-center gap-4">
                         <div>
                             <p className="italic mb-1 text-gray-600 font-semibold">"{q.quotes[0]}"</p>

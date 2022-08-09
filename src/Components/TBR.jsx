@@ -4,6 +4,7 @@ import { SiAddthis } from "react-icons/si";
 // import { BsBookmarkCheckFill } from "react-icons/bs";
 import { getToken } from "../Utilities/getToken";
 import AddToTbrModal from "./AddToTbrModal";
+import LoaderSpinner from "./LoaderSpinner";
 import TbrBookDetails from "./TBRBookDetails";
 
 const TBR = () => {
@@ -11,14 +12,17 @@ const TBR = () => {
     const [showDetails, setShowDetails] = React.useState(false);
     const [tbrList, setTbrList] = React.useState([]);
     const [book, setBook] = React.useState({})
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/tbr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 setTbrList(res.data.books);
             })
             .catch((err) => console.log(err))
@@ -34,7 +38,11 @@ const TBR = () => {
                 >
                     <SiAddthis size={40} className="text-everyblue" />
                 </div>
-                {tbrList.map((t) => (
+                {isLoading ? (
+                    <div className="h-56 md:h-48 lg:h-64 w-40 md:w-1/4 lg:w-1/5 flex justify-center items-center">
+                        <LoaderSpinner />
+                    </div>
+                ) : tbrList.map((t) => (
                     <div
                         onClick={() => {
                             setShowDetails(true)

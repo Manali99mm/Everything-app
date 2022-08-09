@@ -5,19 +5,23 @@ import { AiTwotoneDelete } from "react-icons/ai";
 import { MdModeEdit } from "react-icons/md";
 import { getToken } from "../Utilities/getToken";
 import AddCRModal from "./AddCRModal";
+import { TailSpin } from "react-loader-spinner";
 
 const CurrentlyReading = () => {
     const [currentReads, setCurrentReads] = React.useState([]);
     const [Id, setId] = React.useState();
     const [openBookModal, setOpenBookModal] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/cr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 setCurrentReads(res.data.list);
             })
             .catch((err) => console.log(err));
@@ -76,7 +80,15 @@ const CurrentlyReading = () => {
                                         </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-100">
-                                        {currentReads.map((cr) => (
+                                        {isLoading ? (
+                                            <div className="flex justify-center w-full">
+                                                <TailSpin
+                                                    color="#0d67b5"
+                                                    height={40}
+                                                    width={40}
+                                                />
+                                            </div>
+                                        ) : currentReads.map((cr) => (
                                             <tr>
                                                 <td className="p-2">{cr.sno}</td>
                                                 <td className="p-2 whitespace-nowrap">

@@ -3,6 +3,7 @@ import dayjs from "dayjs";
 import { Formik } from "formik";
 import React, { useEffect } from "react";
 import { getToken } from "../Utilities/getToken";
+import LoaderSpinner from "./LoaderSpinner";
 
 const AddCRModal = ({ setOpenBookModal, id }) => {
     const [selectedOption, setSelectedOption] = React.useState(null);
@@ -15,27 +16,32 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
         percentCompleted: 0,
         startDate: ""
     });
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
-        id && axios.get(`https://everything-apis.herokuapp.com/cr/${id}`, {
-            headers: {
-                Authorization: `Bearer ${getToken()}`
-            }
-        })
-            .then((res) => {
-                const { title, chapter, pagesRead, totalPages, percentCompleted, startDate } = res.data;
-
-                setInitialValues({
-                    title,
-                    chapter,
-                    pagesRead,
-                    totalPages,
-                    percentCompleted,
-                    startDate: dayjs(startDate).format("YYYY-MM-DD"),
-                    duration: ""
-                })
+        if (id) {
+            setIsLoading(true)
+            axios.get(`https://everything-apis.herokuapp.com/cr/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${getToken()}`
+                }
             })
-            .catch((err) => console.log(err));
+                .then((res) => {
+                    setIsLoading(false)
+                    const { title, chapter, pagesRead, totalPages, percentCompleted, startDate } = res.data;
+
+                    setInitialValues({
+                        title,
+                        chapter,
+                        pagesRead,
+                        totalPages,
+                        percentCompleted,
+                        startDate: dayjs(startDate).format("YYYY-MM-DD"),
+                        duration: ""
+                    })
+                })
+                .catch((err) => console.log(err));
+        }
     }, [id])
 
     return (
@@ -61,67 +67,74 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
                             </button>
                         </div>
                         {/*body*/}
-                        <Formik
-                            enableReinitialize={true}
-                            initialValues={initialValues}
-                            onSubmit={(values) => {
-                                if (selectedOption === "pages" && values.pagesRead > 0 && values.totalPages > 0) {
-                                    values.percentCompleted = 0;
-                                } else if (selectedOption === "percent" && values.percentCompleted > 0) {
-                                    values.pagesRead = 0
-                                    values.totalPages = 0
-                                }
-                                axios.post("https://everything-apis.herokuapp.com/cr/new", { ...values, id }, {
-                                    headers: {
-                                        Authorization: `Bearer ${getToken()}`
+                        {isLoading ? (
+                            <div className="flex justify-center p-8">
+                                <LoaderSpinner />
+                            </div>
+                        ) : (
+                            <Formik
+                                enableReinitialize={true}
+                                initialValues={initialValues}
+                                onSubmit={(values, { setSubmitting }) => {
+                                    setSubmitting(true)
+                                    if (selectedOption === "pages" && values.pagesRead > 0 && values.totalPages > 0) {
+                                        values.percentCompleted = 0;
+                                    } else if (selectedOption === "percent" && values.percentCompleted > 0) {
+                                        values.pagesRead = 0
+                                        values.totalPages = 0
                                     }
-                                })
-                                    .then((res) => {
-                                        console.log(res.data);
-                                        window.location.reload();
+                                    axios.post("https://everything-apis.herokuapp.com/cr/new", { ...values, id }, {
+                                        headers: {
+                                            Authorization: `Bearer ${getToken()}`
+                                        }
                                     })
-                                    .catch((err) => console.log(err));
-                            }}
-                        >
-                            {({ values, handleChange, handleSubmit }) => (
-                                <>
-                                    <div className="relative flex-auto">
-                                        <form className="relative w-full" onSubmit={handleSubmit}>
-                                            <div className="relative w-full mt-2 space-y-6 p-6">
-                                                <div class="relative">
-                                                    <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Book Title</label>
-                                                    <input
-                                                        type="text"
-                                                        name="title"
-                                                        value={values.title}
-                                                        onChange={handleChange}
-                                                        className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
-                                                        placeholder="The Alchemist"
-                                                    />
-                                                </div>
-                                                <div class="relative">
-                                                    <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Current Chapter</label>
-                                                    <input
-                                                        type="text"
-                                                        name="chapter"
-                                                        value={values.chapter}
-                                                        onChange={handleChange}
-                                                        className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
-                                                        placeholder="5"
-                                                    />
-                                                </div>
-                                                <div className="relative flex gap-5">
-                                                    <div className="relative w-1/2">
-                                                        <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Start Date</label>
+                                        .then((res) => {
+                                            setIsLoading(false)
+                                            console.log(res.data);
+                                            window.location.reload();
+                                        })
+                                        .catch((err) => console.log(err));
+                                }}
+                            >
+                                {({ values, handleChange, handleSubmit, isSubmitting }) => (
+                                    <>
+                                        <div className="relative flex-auto">
+                                            <form className="relative w-full" onSubmit={handleSubmit}>
+                                                <div className="relative w-full mt-2 space-y-6 p-6">
+                                                    <div class="relative">
+                                                        <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Book Title</label>
                                                         <input
-                                                            type="date"
-                                                            name="startDate"
-                                                            value={values.startDate}
+                                                            type="text"
+                                                            name="title"
+                                                            value={values.title}
                                                             onChange={handleChange}
                                                             className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
+                                                            placeholder="The Alchemist"
                                                         />
                                                     </div>
-                                                    {/* <div className="relative w-1/2">
+                                                    <div class="relative">
+                                                        <label className="absolute px-2 ml-2 -mt-3 font-medium text-gray-600 bg-white">Current Chapter</label>
+                                                        <input
+                                                            type="text"
+                                                            name="chapter"
+                                                            value={values.chapter}
+                                                            onChange={handleChange}
+                                                            className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
+                                                            placeholder="5"
+                                                        />
+                                                    </div>
+                                                    <div className="relative flex gap-5">
+                                                        <div className="relative w-1/2">
+                                                            <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Start Date</label>
+                                                            <input
+                                                                type="date"
+                                                                name="startDate"
+                                                                value={values.startDate}
+                                                                onChange={handleChange}
+                                                                className="block w-full px-4 py-4 mt-2 text-base placeholder-gray-400 bg-white border border-gray-300 rounded-md focus:outline-none focus:border-black"
+                                                            />
+                                                        </div>
+                                                        {/* <div className="relative w-1/2">
                                                         <label className="absolute px-2 ml-2 -mt-2 font-medium text-gray-600 bg-white">Total Duration</label>
                                                         <input
                                                             type="text"
@@ -132,55 +145,55 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
                                                             placeholder="1 hr 32 mins"
                                                         />
                                                     </div> */}
-                                                </div>
-                                                {id && <div class="relative flex flex-col">
-                                                    <label className=" px-2 ml-2 font-medium text-gray-600 bg-white">Progress</label>
-                                                    <div className="flex gap-4 ml-4 mt-2">
-                                                        <div className="flex gap-1">
-                                                            <input
-                                                                type="radio"
-                                                                value="pages"
-                                                                checked={selectedOption === "pages"}
-                                                                onChange={() => setSelectedOption("pages")}
-                                                            />Pages
-                                                        </div>
-                                                        <div className="flex gap-1">
-                                                            <input
-                                                                type="radio"
-                                                                value="percent"
-                                                                checked={selectedOption === "percent"}
-                                                                onChange={() => setSelectedOption("percent")}
-                                                            />Per cent
-                                                        </div>
                                                     </div>
-                                                    {selectedOption === "pages" && <p className="ml-4 mt-4">On Page <input type="text" name="pagesRead" value={values.pagesRead} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /> of <input type="text" name="totalPages" value={values.totalPages} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /></p>}
-                                                    {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentCompleted" value={values.percentCompleted} onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
-                                                </div>}
-                                            </div>
-                                            {/*footer*/}
-                                            <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
-                                                <button
-                                                    className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                    type="button"
-                                                    onClick={() => setOpenBookModal(false)}
-                                                >
-                                                    Close
-                                                </button>
-                                                <button
-                                                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                                    type="submit"
-                                                // onClick={() => setOpenBookModal(false)}
-                                                >
-                                                    Save Changes
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                                    {id && <div class="relative flex flex-col">
+                                                        <label className=" px-2 ml-2 font-medium text-gray-600 bg-white">Progress</label>
+                                                        <div className="flex gap-4 ml-4 mt-2">
+                                                            <div className="flex gap-1">
+                                                                <input
+                                                                    type="radio"
+                                                                    value="pages"
+                                                                    checked={selectedOption === "pages"}
+                                                                    onChange={() => setSelectedOption("pages")}
+                                                                />Pages
+                                                            </div>
+                                                            <div className="flex gap-1">
+                                                                <input
+                                                                    type="radio"
+                                                                    value="percent"
+                                                                    checked={selectedOption === "percent"}
+                                                                    onChange={() => setSelectedOption("percent")}
+                                                                />Per cent
+                                                            </div>
+                                                        </div>
+                                                        {selectedOption === "pages" && <p className="ml-4 mt-4">On Page <input type="text" name="pagesRead" value={values.pagesRead} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /> of <input type="text" name="totalPages" value={values.totalPages} onChange={handleChange} className="border-b mx-2 w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" /></p>}
+                                                        {selectedOption === "percent" && <p className="ml-4 mt-4"><input type="text" name="percentCompleted" value={values.percentCompleted} onChange={handleChange} className="border-b w-24 border-gray-500 focus:ring-0 focus:outline-none text-center" placeholder="#" />  % done</p>}
+                                                    </div>}
+                                                </div>
+                                                {/*footer*/}
+                                                <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+                                                    <button
+                                                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                        type="button"
+                                                        onClick={() => setOpenBookModal(false)}
+                                                    >
+                                                        Close
+                                                    </button>
+                                                    <button
+                                                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                                        type="submit"
+                                                        disabled={isSubmitting}
+                                                    >
+                                                        Save Changes
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
 
-                                </>
-                            )}
-                        </Formik>
-
+                                    </>
+                                )}
+                            </Formik>
+                        )}
                     </div>
                 </div>
             </div>

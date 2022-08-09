@@ -3,19 +3,23 @@ import React, { useEffect } from "react";
 import { getToken } from "../Utilities/getToken";
 import AddMovieSeriesModal from "./AddMovieSeriesModal";
 import { CgAdd } from "react-icons/cg";
+import LoaderSpinner from "./LoaderSpinner";
 
 const CurrentlyWatching = () => {
     const [openModal, setOpenModal] = React.useState(false);
     const [currWatching, setCurrwatching] = React.useState([]);
     const [Id, setId] = React.useState();
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/movser/curr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 setCurrwatching(res.data.list);
             })
             .catch((err) => console.log(err));
@@ -36,7 +40,11 @@ const CurrentlyWatching = () => {
                         <CgAdd size={30} />
                     </div>
                 </div>
-                {currWatching.map((cw) => (
+                {isLoading ? (
+                    <div className="flex justify-center items-center w-48 h-48">
+                        <LoaderSpinner />
+                    </div>
+                ) : currWatching.map((cw) => (
                     <div
                         onClick={() => {
                             setOpenModal(true)

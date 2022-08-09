@@ -5,20 +5,23 @@ import { CgAdd } from "react-icons/cg";
 import AddMovieModal from "./AddMovieSeriesWatchedModal";
 import ReactStars from "react-rating-stars-component";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
+import LoaderSpinner from "./LoaderSpinner";
 
 const SeriesWatched = () => {
     const [openModal, setOpenModal] = React.useState(false);
     const [series, setSeries] = React.useState([]);
     const [Id, setId] = React.useState();
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/movser/watched/series/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
-                console.log(res.data);
+                setIsLoading(false);
                 setSeries(res.data.series);
             })
             .catch((err) => console.log(err));
@@ -39,7 +42,11 @@ const SeriesWatched = () => {
                         <CgAdd size={30} />
                     </div>
                 </div>
-                {series.map((s) => (
+                {isLoading ? (
+                    <div className="flex justify-center w-48 h-48 items-center">
+                        <LoaderSpinner />
+                    </div>
+                ) : series.map((s) => (
                     <div
                         onClick={() => {
                             setOpenModal(true)

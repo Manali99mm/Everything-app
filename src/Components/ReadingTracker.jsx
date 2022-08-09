@@ -5,21 +5,24 @@ import dayjs from "dayjs";
 import AddNewBookModal from "./AddNewBookModal";
 import ReactStars from "react-rating-stars-component";
 import CurrentlyReading from "./CurrentlyReading";
+import LoaderSpinner from "./LoaderSpinner";
 
 const ReadingTracker = () => {
     const [showNewBookModal, setShowNewBookModal] = React.useState(false);
     const [Id, setId] = React.useState();
     const [books, setBooks] = React.useState([]);
     const [selectedBook, setSelectedBook] = React.useState();
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/book/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
-                console.log(res.data);
+                setIsLoading(false)
                 setBooks(res.data.books);
             })
             .catch((err) => console.log(err));
@@ -43,7 +46,11 @@ const ReadingTracker = () => {
                             }}>Add Book</button>
                         </header>
                         <div className="px-5 py-3 flex gap-4 flex-wrap w-full">
-                            {books.map((book) => (
+                            {isLoading ? (
+                                <div className="w-full flex justify-center items-center">
+                                    <LoaderSpinner />
+                                </div>
+                            ) : books.map((book) => (
                                 <div
                                     onClick={() => {
                                         setShowNewBookModal(true)

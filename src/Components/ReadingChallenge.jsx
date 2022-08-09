@@ -4,19 +4,23 @@ import React, { useEffect } from "react";
 import ReactStars from "react-rating-stars-component";
 import { getToken } from "../Utilities/getToken";
 import AddReadingChallengeModal from "./AddReadingChallengeModal";
+import LoaderSpinner from "./LoaderSpinner";
 
 const ReadingChallenge = () => {
     const [showModal, setShowModal] = React.useState(false);
     const [readingChallenge, setReadingChallenge] = React.useState({});
     const [edit, setEdit] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     useEffect(() => {
+        setIsLoading(true)
         axios.get("https://everything-apis.herokuapp.com/user/", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
+                setIsLoading(false)
                 setReadingChallenge(res.data?.user?.readingChallenge);
             })
             .catch((err) => console.log(err))
@@ -26,7 +30,11 @@ const ReadingChallenge = () => {
         <div className="p-4">
             <div className="flex flex-col justify-center items-center">
                 <h1 className="text-gray-600 font-semibold uppercase text-2xl text-center mb-6">{dayjs().format("YYYY")} Reading Challenge</h1>
-                {
+                {isLoading ? (
+                    <div>
+                        <LoaderSpinner />
+                    </div>
+                ) :
                     readingChallenge.totalBooks ? (
                         <>
                             <div className="w-full bg-white p-4 space-y-2 rounded-lg shadow-lg w-full lg:w-1/2">
@@ -65,7 +73,7 @@ const ReadingChallenge = () => {
             {
                 readingChallenge.totalBooks && (
                     <div className="p-4 mt-4">
-                        <h1 className="text-lg font-semibold text-gray-600 uppercase text-center">Books I Have Read</h1>
+                        <h1 className="text-lg font-semibold text-gray-600 uppercase text-center">Books Read This Year</h1>
                         {readingChallenge.books.length > 0 ? (
                             <div className="py-8 md:px-4 flex flex-wrap justify-start gap-4">
                                 {readingChallenge.books.map((book) => (

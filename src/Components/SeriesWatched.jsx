@@ -25,7 +25,7 @@ const SeriesWatched = () => {
                 setSeries(res.data.series);
             })
             .catch((err) => console.log(err));
-    }, [])
+    }, [openModal])
 
     return (
         <>

@@ -7,6 +7,7 @@ import axios from "axios";
 import LoginImg from "../assets/Login.png";
 
 const Login = () => {
+    const [error, setError] = React.useState(null);
     const navigate = useNavigate();
 
     const googleSignIn = () => (window.location.href = "https://everything-apis.herokuapp.com/auth/google")
@@ -30,11 +31,14 @@ const Login = () => {
                         onSubmit={(values) => {
                             axios.post("https://everything-apis.herokuapp.com/auth/signin", values)
                                 .then((res) => {
-                                    // console.log(res);
+                                    console.log(res);
                                     localStorage.setItem("every-token", res.data.token);
                                     navigate("/");
                                 })
-                                .catch((err) => console.log(err));
+                                .catch((err) => {
+                                    setError(err.response.data.error)
+                                    console.log(err.response.data.error)
+                                });
                         }}
                     >
                         {({ values, handleChange, handleSubmit }) => (
@@ -55,7 +59,8 @@ const Login = () => {
                                     value={values.credentials.password}
                                     placeholder="Password"
                                 />
-                                <Link to="/register" className="text-sm text-everyblue font-semibold">Forgot password?</Link>
+                                {error && <p className="text-red-500">{error}</p>}
+                                {/* <Link to="/register" className="text-sm text-everyblue font-semibold">Forgot password?</Link> */}
                                 <button type="submit" className="bg-everyblue text-white py-2 rounded-lg">Login</button>
                                 <button onClick={googleSignIn} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign in with Google</button>
                             </form>

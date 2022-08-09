@@ -25,7 +25,7 @@ const MoviesWatched = () => {
                 setMovies(res.data.movies);
             })
             .catch((err) => console.log(err));
-    }, [])
+    }, [openModal])
 
     return (
         <>

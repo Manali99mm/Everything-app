@@ -25,7 +25,7 @@ const CurrentlyReading = () => {
                 setCurrentReads(res.data.list);
             })
             .catch((err) => console.log(err));
-    }, [])
+    }, [openBookModal])
 
     const deleteBook = (id) => {
         axios.delete(`https://everything-apis.herokuapp.com/cr/delete/${id}`, {

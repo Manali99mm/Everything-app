@@ -6,10 +6,10 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import PrivateRoute from "./Routes/PrivateRoute";
-
-import "react-toastify/dist/ReactToastify.css";
 import MovieSeriesProvider from "./Context/MovieSeriesContext";
 import QuotesList from "./Components/QuotesList";
+
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (

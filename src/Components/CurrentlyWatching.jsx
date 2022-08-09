@@ -23,7 +23,7 @@ const CurrentlyWatching = () => {
                 setCurrwatching(res.data.list);
             })
             .catch((err) => console.log(err));
-    }, [])
+    }, [openModal])
 
     return (
         <>

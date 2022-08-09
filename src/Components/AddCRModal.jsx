@@ -4,6 +4,7 @@ import { Formik } from "formik";
 import React, { useEffect } from "react";
 import { getToken } from "../Utilities/getToken";
 import LoaderSpinner from "./LoaderSpinner";
+import { toast } from "react-toastify";
 
 const AddCRModal = ({ setOpenBookModal, id }) => {
     const [selectedOption, setSelectedOption] = React.useState(null);
@@ -91,7 +92,9 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
                                         .then((res) => {
                                             setIsLoading(false)
                                             console.log(res.data);
-                                            window.location.reload();
+                                            toast(res.data.message);
+                                            // window.location.reload();
+                                            setOpenBookModal(false);
                                         })
                                         .catch((err) => console.log(err));
                                 }}

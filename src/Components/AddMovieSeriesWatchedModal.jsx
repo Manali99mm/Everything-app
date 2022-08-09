@@ -48,7 +48,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
         })
             .then((res) => {
                 console.log(res.data);
-                window.location.reload();
+                setOpenModal(false)
             })
             .catch((err) => console.log(err));
     }
@@ -90,7 +90,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                     })
                                         .then((res) => {
                                             console.log(res.data);
-                                            window.location.reload();
+                                            setOpenModal(false)
                                         })
                                         .catch((err) => console.log(err));
                                 }}

@@ -7,6 +7,7 @@ import axios from "axios";
 import SignUp from "../assets/Signup.png";
 
 const Register = () => {
+    const [error, setError] = React.useState();
     const navigate = useNavigate();
 
     const googleSignUp = () => (window.location.href = "https://everything-apis.herokuapp.com/auth/google")
@@ -34,7 +35,9 @@ const Register = () => {
                                     localStorage.setItem("every-token", res.data.token);
                                     navigate("/");
                                 })
-                                .catch((err) => console.log(err));
+                                .catch((err) => {
+                                    setError(err.response.data.error)
+                                });
                         }}
                     >
                         {({ values, handleChange, handleSubmit }) => (
@@ -63,6 +66,7 @@ const Register = () => {
                                     value={values.credentials.password}
                                     placeholder="Password"
                                 />
+                                {error && <p className="text-red-500 text-sm">{error}</p>}
                                 <button type="submit" className="bg-everyblue text-white py-2 rounded-lg">Sign Up</button>
                                 <button onClick={googleSignUp} className="py-2 justify-center rounded-lg flex items-center gap-2 w-full border border-gray-400 bg-white text-gray-700 hover:bg-gray-100"><FcGoogle size={22} /> Sign up with Google</button>
                             </form>

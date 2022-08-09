@@ -4,6 +4,7 @@ import logo from "../assets/logo-transparent.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import SignUp from "../assets/Signup.png";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -12,8 +13,10 @@ const Register = () => {
 
     return (
         <>
-            <div className="w-full lg:flex">
-                <div className="hidden lg:block bg-everyblue w-1/2 h-screen"></div>
+            <div className="w-full h-screen lg:flex">
+                <div className="hidden lg:block bg-everyblue w-1/2 lg:flex lg:flex-col lg:justify-center lg:items-center">
+                    <img src={SignUp} alt="signup" className="text-center" />
+                </div>
                 <div className="w-full lg:w-1/2 flex flex-col justify-center items-center">
                     <img src={logo} alt="logo" height="120px" width="120px" />
                     <Formik

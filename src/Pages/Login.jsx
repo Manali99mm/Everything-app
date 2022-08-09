@@ -4,6 +4,7 @@ import logo from "../assets/logo-transparent.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
+import LoginImg from "../assets/Login.png";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -12,8 +13,9 @@ const Login = () => {
 
     return (
         <>
-            <div className="w-full lg:flex lg:flex-row h-full">
-                <div className="hidden lg:block bg-everyblue w-1/2 h-screen">
+            <div className="w-full lg:flex h-screen">
+                <div className="hidden lg:block bg-everyblue w-1/2 h-full lg:flex lg:flex-col lg:justify-center lg:items-center">
+                    <img src={LoginImg} alt="signup" className="text-center" />
                 </div>
                 <div className="w-full lg:w-1/2 flex flex-col justify-center items-center">
                     <img src={logo} alt="logo" height="120px" width="120px" />

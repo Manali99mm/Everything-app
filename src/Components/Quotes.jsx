@@ -16,7 +16,7 @@ const Quotes = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/quote/list", {
+        axios.get("/quote/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -7,7 +7,7 @@ const AddReadingChallengeModal = ({ setShowModal, edit, goal }) => {
     const [totalBooks, setTotalBooks] = React.useState(goal);
 
     const startReadingChallenge = () => {
-        axios.post("https://everything-apis.herokuapp.com/user/readingChallenge", { totalBooks }, {
+        axios.post("/user/readingChallenge", { totalBooks }, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

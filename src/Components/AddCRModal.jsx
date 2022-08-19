@@ -22,7 +22,7 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
     useEffect(() => {
         if (id) {
             setIsLoading(true)
-            axios.get(`https://everything-apis.herokuapp.com/cr/${id}`, {
+            axios.get(`/cr/${id}`, {
                 headers: {
                     Authorization: `Bearer ${getToken()}`
                 }
@@ -84,7 +84,7 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
                                         values.pagesRead = 0
                                         values.totalPages = 0
                                     }
-                                    axios.post("https://everything-apis.herokuapp.com/cr/new", { ...values, id }, {
+                                    axios.post("/cr/new", { ...values, id }, {
                                         headers: {
                                             Authorization: `Bearer ${getToken()}`
                                         }

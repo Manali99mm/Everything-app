@@ -23,7 +23,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/book/dashboard", {
+        axios.get("/book/dashboard", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -16,7 +16,7 @@ const ReadingTracker = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/book/list", {
+        axios.get("/book/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

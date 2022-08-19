@@ -15,7 +15,7 @@ const SeriesWatched = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/movser/watched/series/list", {
+        axios.get("/movser/watched/series/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

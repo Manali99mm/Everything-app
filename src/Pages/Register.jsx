@@ -29,7 +29,7 @@ const Register = () => {
                             }
                         }}
                         onSubmit={(values) => {
-                            axios.post("https://everything-apis.herokuapp.com/auth/signup", values)
+                            axios.post("/auth/signup", values)
                                 .then((res) => {
                                     console.log(res.data)
                                     localStorage.setItem("every-token", res.data.token);

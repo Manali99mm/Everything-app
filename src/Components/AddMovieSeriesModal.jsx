@@ -19,7 +19,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
     useEffect(() => {
         if (id) {
             setIsLoading(true);
-            axios.get(`https://everything-apis.herokuapp.com/movser/curr/details/${id}`, {
+            axios.get(`/movser/curr/details/${id}`, {
                 headers: {
                     Authorization: `Bearer ${getToken()}`
                 }
@@ -42,7 +42,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
     }, [id])
 
     const deleteItem = () => {
-        axios.delete(`https://everything-apis.herokuapp.com/movser/curr/delete/${id}`, {
+        axios.delete(`/movser/curr/delete/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -84,7 +84,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
                                 enableReinitialize={true}
                                 initialValues={initialValues}
                                 onSubmit={(values) => {
-                                    axios.post("https://everything-apis.herokuapp.com/movser/curr/add", { ...values, id }, {
+                                    axios.post("/movser/curr/add", { ...values, id }, {
                                         headers: {
                                             Authorization: `Bearer ${getToken()}`
                                         }

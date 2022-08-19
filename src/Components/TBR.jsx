@@ -16,7 +16,7 @@ const TBR = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/tbr/list", {
+        axios.get("/tbr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -17,7 +17,7 @@ const NavBar = () => {
     const ref = useRef();
 
     useEffect(() => {
-        axios.get("https://everything-apis.herokuapp.com/user/", {
+        axios.get("/user/", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

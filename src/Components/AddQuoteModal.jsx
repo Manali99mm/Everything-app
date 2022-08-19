@@ -32,7 +32,7 @@ const AddQuoteModal = ({ setShowModal, id }) => {
                                 quote: ""
                             }}
                             onSubmit={(values) => {
-                                axios.post("https://everything-apis.herokuapp.com/quote/new", { ...values, id }, {
+                                axios.post("/quote/new", { ...values, id }, {
                                     headers: {
                                         Authorization: `Bearer ${getToken()}`
                                     }

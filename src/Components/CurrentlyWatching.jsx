@@ -13,7 +13,7 @@ const CurrentlyWatching = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/movser/curr/list", {
+        axios.get("/movser/curr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

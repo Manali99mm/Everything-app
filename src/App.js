@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import GoogleAuth from "./Pages/GoogleAuth";
@@ -9,7 +10,11 @@ import PrivateRoute from "./Routes/PrivateRoute";
 import MovieSeriesProvider from "./Context/MovieSeriesContext";
 import QuotesList from "./Components/QuotesList";
 
+// react-toastify css
 import "react-toastify/dist/ReactToastify.css";
+
+// axios default settings
+axios.defaults.baseURL = "https://everything-apis.herokuapp.com";
 
 const App = () => {
   return (

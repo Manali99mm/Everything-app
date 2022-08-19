@@ -4,7 +4,7 @@ import { getToken } from "../Utilities/getToken";
 
 const TbrBookDetails = ({ book, showDetails }) => {
     const removeFromTbr = () => {
-        axios.put("https://everything-apis.herokuapp.com/tbr/remove", { bookId: book._id, cloudinary_id: book.cloudinary_id }, {
+        axios.put("/tbr/remove", { bookId: book._id, cloudinary_id: book.cloudinary_id }, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

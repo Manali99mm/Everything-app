@@ -14,14 +14,14 @@ const ReadingChallenge = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/user/", {
+        axios.get("/user/", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
         })
             .then((res) => {
                 setIsLoading(false)
-                setReadingChallenge(res.data?.user?.readingChallenge);
+                setReadingChallenge(res.data.user.readingChallenge);
             })
             .catch((err) => console.log(err))
     }, [])
@@ -41,7 +41,7 @@ const ReadingChallenge = () => {
                                 <h1 className="text-left font-semibold">You've read {readingChallenge.booksRead} of {readingChallenge.totalBooks} books</h1>
                                 <div className="flex items-center gap-1 justify-center">
                                     <div className="w-full bg-gray-200 rounded-full">
-                                        <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full" style={{ width: `${readingChallenge.progress}%` }}></div>
+                                        <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-full" style={{ width: `${readingChallenge.progress}%`, maxWidth: "100%" }}></div>
                                     </div>
                                     <div>{Math.round(readingChallenge.progress)}%</div>
                                 </div>
@@ -56,6 +56,9 @@ const ReadingChallenge = () => {
                                     Edit Goal
                                 </button>
                             </div>
+                            {readingChallenge.progress >= 100 && (
+                                <p className="px-4 pt-8">Congratulations! You've completed your reading challenge.</p>
+                            )}
                         </>
                     ) :
                         <button
@@ -72,8 +75,8 @@ const ReadingChallenge = () => {
             </div>
             {
                 readingChallenge.totalBooks && (
-                    <div className="p-4 mt-4">
-                        <h1 className="text-lg font-semibold text-gray-600 uppercase text-center">Books Read This Year</h1>
+                    <div className="p-4 mt-4 md:mt-8">
+                        <h1 className="md:px-4 text-lg font-semibold text-gray-600 uppercase text-center">Books Read This Year</h1>
                         {readingChallenge.books.length > 0 ? (
                             <div className="py-8 md:px-4 flex flex-wrap justify-start gap-4">
                                 {readingChallenge.books.map((book) => (
@@ -89,7 +92,7 @@ const ReadingChallenge = () => {
                                                 <ReactStars
                                                     edit={false}
                                                     value={book.rating}
-                                                    size={24}
+                                                    size={20}
                                                     isHalf={true}
                                                 />
                                             </div>
@@ -104,28 +107,6 @@ const ReadingChallenge = () => {
                 )
             }
             {showModal && <AddReadingChallengeModal setShowModal={setShowModal} edit={edit} goal={readingChallenge.totalBooks ? readingChallenge.totalBooks : 0} />}
-            {/* <div className="flex gap-4 justify-center">
-                <button
-                    onClick={() => {
-                        setShowModal(true)
-                        setType("monthly")
-                    }}
-                    className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                >
-                    Monthly
-                </button>
-                <button
-                    onClick={() => {
-                        setShowModal(true)
-                        setType("yearly")
-                    }}
-                    className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                >
-                    Yearly
-                </button>
-            </div> */}
         </div>
     )
 }

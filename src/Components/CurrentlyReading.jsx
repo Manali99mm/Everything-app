@@ -15,7 +15,7 @@ const CurrentlyReading = () => {
 
     useEffect(() => {
         setIsLoading(true)
-        axios.get("https://everything-apis.herokuapp.com/cr/list", {
+        axios.get("/cr/list", {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -28,7 +28,7 @@ const CurrentlyReading = () => {
     }, [openBookModal])
 
     const deleteBook = (id) => {
-        axios.delete(`https://everything-apis.herokuapp.com/cr/delete/${id}`, {
+        axios.delete(`/cr/delete/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

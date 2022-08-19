@@ -21,7 +21,7 @@ const QuotesList = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        axios.get(`https://everything-apis.herokuapp.com/quote/${id}`, {
+        axios.get(`/quote/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }
@@ -39,7 +39,7 @@ const QuotesList = () => {
     }, [id])
 
     const deleteQuotes = () => {
-        axios.delete(`https://everything-apis.herokuapp.com/quote/delete/${id}`, {
+        axios.delete(`/quote/delete/${id}`, {
             headers: {
                 Authorization: `Bearer ${getToken()}`
             }

@@ -12,6 +12,7 @@ const MoviesWatched = () => {
     const [movies, setMovies] = React.useState([]);
     const [Id, setId] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
+    const [refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {
         setIsLoading(true)
@@ -25,7 +26,7 @@ const MoviesWatched = () => {
                 setMovies(res.data.movies);
             })
             .catch((err) => console.log(err));
-    }, [openModal])
+    }, [refresh])
 
     return (
         <>
@@ -75,7 +76,7 @@ const MoviesWatched = () => {
                 ))}
 
             </div>
-            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="movie" id={Id} />}
+            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="movie" id={Id} refresh={refresh} setRefresh={setRefresh} />}
         </>
     )
 }

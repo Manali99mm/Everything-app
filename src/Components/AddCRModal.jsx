@@ -6,7 +6,7 @@ import { getToken } from "../Utilities/getToken";
 import LoaderSpinner from "./LoaderSpinner";
 import { toast } from "react-toastify";
 
-const AddCRModal = ({ setOpenBookModal, id }) => {
+const AddCRModal = ({ setOpenBookModal, id, setRefresh, refresh }) => {
     const [selectedOption, setSelectedOption] = React.useState(null);
     const [initialValues, setInitialValues] = React.useState({
         title: "",
@@ -91,9 +91,8 @@ const AddCRModal = ({ setOpenBookModal, id }) => {
                                     })
                                         .then((res) => {
                                             setIsLoading(false)
-                                            console.log(res.data);
                                             toast(res.data.message);
-                                            // window.location.reload();
+                                            setRefresh(!refresh);
                                             setOpenBookModal(false);
                                         })
                                         .catch((err) => console.log(err));

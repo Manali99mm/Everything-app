@@ -12,6 +12,7 @@ const SeriesWatched = () => {
     const [series, setSeries] = React.useState([]);
     const [Id, setId] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
+    const [refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {
         setIsLoading(true)
@@ -25,7 +26,7 @@ const SeriesWatched = () => {
                 setSeries(res.data.series);
             })
             .catch((err) => console.log(err));
-    }, [openModal])
+    }, [refresh])
 
     return (
         <>
@@ -76,7 +77,7 @@ const SeriesWatched = () => {
                 ))}
 
             </div>
-            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="series" id={Id} />}
+            {openModal && <AddMovieModal setOpenModal={setOpenModal} type="series" id={Id} setRefresh={setRefresh} refresh={refresh} />}
         </>
     )
 }

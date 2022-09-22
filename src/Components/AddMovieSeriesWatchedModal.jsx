@@ -6,7 +6,7 @@ import ReactStars from "react-rating-stars-component";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import LoaderSpinner from "./LoaderSpinner";
 
-const AddMovieModal = ({ setOpenModal, type, id }) => {
+const AddMovieModal = ({ setOpenModal, type, id, setRefresh, refresh }) => {
     const [initialValues, setInitialValues] = React.useState({
         type: type,
         title: "",
@@ -48,6 +48,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
         })
             .then((res) => {
                 console.log(res.data);
+                setRefresh(!refresh);
                 setOpenModal(false)
             })
             .catch((err) => console.log(err));
@@ -90,6 +91,7 @@ const AddMovieModal = ({ setOpenModal, type, id }) => {
                                     })
                                         .then((res) => {
                                             console.log(res.data);
+                                            setRefresh(!refresh);
                                             setOpenModal(false)
                                         })
                                         .catch((err) => console.log(err));

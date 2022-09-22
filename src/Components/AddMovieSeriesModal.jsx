@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { getToken } from "../Utilities/getToken";
 import LoaderSpinner from "./LoaderSpinner";
 
-const AddMovieSeriesModal = ({ setOpenModal, id }) => {
+const AddMovieSeriesModal = ({ setOpenModal, id, setRefresh, refresh }) => {
     const [initialValues, setInitialValues] = React.useState({
         type: "series",
         movieTitle: "",
@@ -48,7 +48,7 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
             }
         })
             .then((res) => {
-                console.log(res.data);
+                setRefresh(!refresh);
                 setOpenModal(false);
             })
             .catch((err) => console.log(err));
@@ -91,10 +91,10 @@ const AddMovieSeriesModal = ({ setOpenModal, id }) => {
                                     })
                                         .then((res) => {
                                             console.log(res.data);
+                                            setRefresh(!refresh);
                                             setOpenModal(false)
                                         })
                                         .catch((err) => console.log(err))
-
                                 }}
                             >
                                 {({ values, handleChange, handleSubmit, setFieldValue }) => (

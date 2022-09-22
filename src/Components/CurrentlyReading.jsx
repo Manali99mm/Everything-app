@@ -12,6 +12,7 @@ const CurrentlyReading = () => {
     const [Id, setId] = React.useState();
     const [openBookModal, setOpenBookModal] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
+    const [refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {
         setIsLoading(true)
@@ -25,7 +26,7 @@ const CurrentlyReading = () => {
                 setCurrentReads(res.data.list);
             })
             .catch((err) => console.log(err));
-    }, [openBookModal])
+    }, [refresh])
 
     const deleteBook = (id) => {
         axios.delete(`/cr/delete/${id}`, {
@@ -138,7 +139,7 @@ const CurrentlyReading = () => {
                     </div>
                 </div>
             </section>
-            {openBookModal && <AddCRModal setOpenBookModal={setOpenBookModal} id={Id} />}
+            {openBookModal && <AddCRModal setOpenBookModal={setOpenBookModal} id={Id} setRefresh={setRefresh} refresh={refresh} />}
         </>
     )
 }

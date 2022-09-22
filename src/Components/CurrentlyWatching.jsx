@@ -10,6 +10,7 @@ const CurrentlyWatching = () => {
     const [currWatching, setCurrwatching] = React.useState([]);
     const [Id, setId] = React.useState();
     const [isLoading, setIsLoading] = React.useState(false);
+    const [refresh, setRefresh] = React.useState(false);
 
     useEffect(() => {
         setIsLoading(true)
@@ -23,7 +24,7 @@ const CurrentlyWatching = () => {
                 setCurrwatching(res.data.list);
             })
             .catch((err) => console.log(err));
-    }, [openModal])
+    }, [refresh])
 
     return (
         <>
@@ -68,7 +69,7 @@ const CurrentlyWatching = () => {
                 ))}
 
             </div>
-            {openModal && <AddMovieSeriesModal setOpenModal={setOpenModal} id={Id} />}
+            {openModal && <AddMovieSeriesModal setOpenModal={setOpenModal} id={Id} setRefresh={setRefresh} refresh={refresh} />}
         </>
     )
 }

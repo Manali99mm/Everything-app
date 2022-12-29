@@ -6,6 +6,7 @@ import { MdModeEdit } from "react-icons/md";
 import { getToken } from "../Utilities/getToken";
 import AddCRModal from "./AddCRModal";
 import { TailSpin } from "react-loader-spinner";
+import { BiSearch } from "react-icons/bi";
 
 const CurrentlyReading = () => {
     const [currentReads, setCurrentReads] = React.useState([]);
@@ -13,6 +14,7 @@ const CurrentlyReading = () => {
     const [openBookModal, setOpenBookModal] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
     const [refresh, setRefresh] = React.useState(false);
+    const [searchString, setSearchString] = React.useState("");
 
     useEffect(() => {
         setIsLoading(true)
@@ -27,6 +29,23 @@ const CurrentlyReading = () => {
             })
             .catch((err) => console.log(err));
     }, [refresh])
+
+    useEffect(() => {
+        setIsLoading(true)
+        axios.get(`/cr/search`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            },
+            params: {
+                searchString
+            }
+        })
+            .then((res) => {
+                setIsLoading(false)
+                setCurrentReads(res.data.list);
+            })
+            .catch((err) => console.log(err));
+    }, [searchString])
 
     const deleteBook = (id) => {
         axios.delete(`/cr/delete/${id}`, {
@@ -48,8 +67,41 @@ const CurrentlyReading = () => {
             <section className="w-full antialiased text-gray-600 md:px-8 py-6">
                 <div className="flex flex-col justify-start h-full">
                     <div className="w-full bg-white shadow-lg rounded-sm border border-gray-200">
-                        <header className="px-5 py-4 border-b border-gray-100 flex justify-between items-center gap-1">
-                            <h2 className="font-semibold text-gray-800 text-lg">Currently Reading <span className="text-gray-500">({currentReads.length})</span></h2>
+                        {/*header for mobile screens*/}
+                        <header className="md:hidden px-5 py-4 border-b border-gray-100 ">
+                            <div className="flex justify-between items-center gap-1">
+                                <h2 className="font-semibold text-gray-800 text-lg">Currently Reading <span className="text-gray-500">({currentReads.length})</span></h2>
+                                <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
+                                    setId(null);
+                                    setOpenBookModal(true)
+                                }}>Add Book</button>
+                            </div>
+                            <div className="flex items-center gap-3 bg-white rounded-md border border-2 px-2 py-1 mt-3 ">
+                                <BiSearch />
+                                <input
+                                    type="search"
+                                    className="w-full bg-transparent border-none focus:outline-none "
+                                    placeholder="Search by title"
+                                    value={searchString}
+                                    onChange={(e) => setSearchString(e.target.value)}
+                                />
+                            </div>
+                        </header>
+                        {/*header for medium and large screens*/}
+                        <header className="hidden md:flex px-5 py-4 border-b border-gray-100 justify-between items-center gap-1">
+                            <div className="flex gap-4 items-center">
+                                <h2 className="font-semibold text-gray-800 text-lg">Currently Reading <span className="text-gray-500">({currentReads.length})</span></h2>
+                                <div className="flex items-center gap-3 bg-white rounded-md border border-2 px-2 py-1">
+                                    <BiSearch />
+                                    <input
+                                        type="search"
+                                        className="w-full bg-transparent border-none focus:outline-none "
+                                        placeholder="Search by title"
+                                        value={searchString}
+                                        onChange={(e) => setSearchString(e.target.value)}
+                                    />
+                                </div>
+                            </div>
                             <button className="bg-everyblue py-2 px-4 rounded-lg text-white" onClick={() => {
                                 setId(null);
                                 setOpenBookModal(true)

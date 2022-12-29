@@ -14,7 +14,8 @@ import QuotesList from "./Components/QuotesList";
 import "react-toastify/dist/ReactToastify.css";
 
 // axios default settings
-axios.defaults.baseURL = "https://everything-apis.herokuapp.com";
+// axios.defaults.baseURL = "https://everything-apis.herokuapp.com";
+axios.defaults.baseURL = "https://puzzling-agreeable-borogovia.glitch.me/";
 
 const App = () => {
   return (

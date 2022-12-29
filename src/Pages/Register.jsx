@@ -10,7 +10,7 @@ const Register = () => {
     const [error, setError] = React.useState();
     const navigate = useNavigate();
 
-    const googleSignUp = () => (window.location.href = "https://everything-apis.herokuapp.com/auth/google")
+    const googleSignUp = () => (window.location.href = "https://puzzling-agreeable-borogovia.glitch.me/auth/google")
 
     return (
         <>

@@ -10,7 +10,7 @@ const Login = () => {
     const [error, setError] = React.useState(null);
     const navigate = useNavigate();
 
-    const googleSignIn = () => (window.location.href = "https://everything-apis.herokuapp.com/auth/google")
+    const googleSignIn = () => (window.location.href = "https://puzzling-agreeable-borogovia.glitch.me/auth/google")
 
     return (
         <>
